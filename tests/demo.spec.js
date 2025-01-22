@@ -10,6 +10,7 @@ describe('Puppeteer Demo', function () {
     let browserOptions = {
         headless: false,
         timeout: 15000,
+        devtools: true
     }
     let viewportOptions = {
         width: 1280,
@@ -68,6 +69,11 @@ describe('Puppeteer Demo', function () {
         // code to sleep using javascrip
         // await new Promise(r => setTimeout(r, 2000));
         await setTimeout(sleepTime)
+
+        // code to be used when we want to debug a feature
+        await page.evaluate(() => {
+            debugger
+        })
 
         const pageTitle = await page.title()
         const pageUrl = await page.url()
