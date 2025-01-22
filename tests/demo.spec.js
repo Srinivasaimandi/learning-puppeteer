@@ -16,11 +16,17 @@ describe('Puppeteer Demo', function () {
     }
     let sleepTime = 1000
 
-    it('first test', async () => {
+    this.beforeEach(async () => {
         browser = await puppeteer.launch(browserOptions)
         page = await browser.newPage()
         await page.setViewport(viewportOptions)
+    })
 
+    this.afterEach(async () => {
+        await browser.close()
+    })
+
+    it('test-1', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -43,6 +49,13 @@ describe('Puppeteer Demo', function () {
         // fetches page url
         console.log(await page.url())
         console.log(await page.viewport())
-        await browser.close()
+    })
+
+    it('test-2: demonstrating use of hooks', async () => {
+        await page.goto('https://example.com/')
+
+        // code to sleep using javascrip
+        // await new Promise(r => setTimeout(r, 2000));
+        await setTimeout(sleepTime)
     })
 })
