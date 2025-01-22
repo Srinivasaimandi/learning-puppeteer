@@ -27,7 +27,8 @@ describe('Puppeteer Demo', function () {
         await browser.close()
     })
 
-    it('test-1', async () => {
+    // this skips the test
+    it.skip('test-1', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -60,7 +61,8 @@ describe('Puppeteer Demo', function () {
         await setTimeout(sleepTime)
     })
 
-    it('test-3: assertions', async () => {
+    // only this test runs
+    it.only('test-3: assertions', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
