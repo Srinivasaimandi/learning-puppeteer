@@ -1,9 +1,10 @@
 const puppeteer = require('puppeteer')
 const mocha = require('mocha')
+const expect = require('expect.js')
+
 const { setTimeout } = require('node:timers/promises')
 
 describe('Puppeteer Demo', function () {
-
     let browser
     let page
     let browserOptions = {
@@ -57,5 +58,21 @@ describe('Puppeteer Demo', function () {
         // code to sleep using javascrip
         // await new Promise(r => setTimeout(r, 2000));
         await setTimeout(sleepTime)
+    })
+
+    it('test-3: assertions', async () => {
+        await page.goto('https://example.com/')
+
+        // code to sleep using javascrip
+        // await new Promise(r => setTimeout(r, 2000));
+        await setTimeout(sleepTime)
+
+        const pageTitle = await page.title()
+        const pageUrl = await page.url()
+        // assertions
+        expect(pageTitle).to.contain('Example Domain')
+        expect(pageUrl).to.contain('example.com')
+        // waiting for an element and this is by puppeteer
+        await page.waitForSelector('h1')
     })
 })
