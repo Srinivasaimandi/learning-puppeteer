@@ -135,4 +135,14 @@ describe('Puppeteer Demo', function () {
         let uploadSuccessMessage = await page.$eval("#file_upload_response", span => span.innerText)
         await expect(uploadSuccessMessage).to.equal("You have successfully uploaded \"uploadTestDemoFile.pdf\"")
     })
+
+    it("test-8: custom functions", async () => {
+        await page.goto("https://qa-automation-practice.netlify.app/file-upload")
+        await page.waitForSelector("h2")
+        await logTitle(page)
+    })
 })
+
+async function logTitle(page) {
+    console.log("Log from custom function: " + await page.title())
+}
