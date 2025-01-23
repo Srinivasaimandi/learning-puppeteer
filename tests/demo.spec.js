@@ -10,8 +10,9 @@ describe('Puppeteer Demo', function () {
     let browserOptions = {
         headless: false,
         timeout: 15000,
-        devtools: true,
-        args: ['--start-maximized']
+        // to enable debug mode
+        devtools: false,
+        args: ['--start-maximized'],
     }
     let viewportOptions = {
         width: 1280,
@@ -29,7 +30,8 @@ describe('Puppeteer Demo', function () {
         await browser.close()
     })
 
-    // this skips the test
+    // skip:this skips the test
+    // only: this test runs leaving the others
     it.skip('test-1', async () => {
         await page.goto('https://example.com/')
 
@@ -55,8 +57,7 @@ describe('Puppeteer Demo', function () {
         console.log(await page.viewport())
     })
 
-    // only this test runs
-    it.only('test-2: demonstrating use of hooks', async () => {
+    it.skip('test-2: demonstrating use of hooks', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -64,7 +65,7 @@ describe('Puppeteer Demo', function () {
         await setTimeout(sleepTime)
     })
 
-    it('test-3: assertions', async () => {
+    it.skip('test-3: assertions', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
