@@ -38,7 +38,10 @@ describe('E2E Demo', function () {
         await loginPage.load_app()
 
         // fill login form and submit the form
-        await loginPage.login("standard_user", "secret_sauce")
+        // await loginPage.login("standard_user", "secret_sauce")
+        await loginPage.iptUsername.fill("standard_user")
+        await loginPage.iptPassword.fill("secret_sauce")
+        await loginPage.btnLogin.click()
         await setTimeout(sleepTime)
 
         // wait for products page to load

@@ -2,9 +2,9 @@ class LoginPage {
     constructor(page) {
         this.page = page
         this.base_url = "https://www.saucedemo.com/"
-        this.iptUsername = "#user-name"
-        this.iptPassword = "#password"
-        this.btnLogin = "#login-button"
+        this.iptUsername = this.page.locator("#user-name")
+        this.iptPassword = this.page.locator("#password")
+        this.btnLogin = this.page.locator("#login-button")
     }
 
     async load_app() {
