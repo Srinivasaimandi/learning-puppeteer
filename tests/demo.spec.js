@@ -118,4 +118,21 @@ describe('Puppeteer Demo', function () {
         console.log(iPhone)
         await setTimeout(3000)
     })
+
+    it("test-7: file uploads", async () => {
+        await page.goto("https://qa-automation-practice.netlify.app/file-upload")
+        await page.waitForSelector("h2")
+        // making pdfs
+        await page.pdf({ path: "./snaps/pdfs/uploadTestDemoFile.pdf" })
+        // uploading the created pdf document
+        const fileInput = await page.$("input[type='file']")
+        const file = "./snaps/pdfs/uploadTestDemoFile.pdf"
+        await fileInput.uploadFile(file)
+        // submitting the upload form
+        await page.click("button[type='Submit']")
+        await page.waitForSelector("#file_upload_response")
+        // code to fetch text of an item and validate it
+        let uploadSuccessMessage = await page.$eval("#file_upload_response", span => span.innerText)
+        await expect(uploadSuccessMessage).to.equal("You have successfully uploaded \"uploadTestDemoFile.pdf\"")
+    })
 })
