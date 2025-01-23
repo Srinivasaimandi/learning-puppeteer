@@ -85,4 +85,14 @@ describe('Puppeteer Demo', function () {
         // waiting for an element and this is by puppeteer
         await page.waitForSelector('h1')
     })
+
+    it('handling elements using selectors', async () => {
+        await page.goto('https://saucedemo.com/')
+        await page.waitForSelector('form')
+        await page.type("input[placeholder='Username']", 'username', { delay: 50 })
+        await page.type("#password", "password")
+        await page.click("[data-test='login-button']")
+        await page.waitForSelector(".error")
+        await setTimeout(sleepTime)
+    })
 })
