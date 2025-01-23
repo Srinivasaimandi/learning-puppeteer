@@ -98,12 +98,24 @@ describe('Puppeteer Demo', function () {
         await setTimeout(sleepTime)
     })
 
-    it.only('test-5: handling multimedia', async () => {
+    it('test-5: handling multimedia', async () => {
         await page.goto('https://saucedemo.com/')
         await page.waitForSelector('form')
         // taking screenshot
         await page.screenshot({ path: "./snaps/images/handlingMultimedia.png" })
         // making pdfs
         await page.pdf({ path: "./snaps/pdfs/handlingMultimedia.pdf" })
+    })
+
+    it('test-6: device emulations', async () => {
+        // this emulates the view port of the know device and opens the website on that device
+        const { KnownDevices } = require("puppeteer")
+        const iPhone = KnownDevices['iPhone 15']
+        await page.emulate(iPhone)
+        await page.goto('https://saucedemo.com/')
+        await page.waitForSelector('form')
+        // we can view the configuration information for the iPhone
+        console.log(iPhone)
+        await setTimeout(3000)
     })
 })
