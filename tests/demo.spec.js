@@ -30,9 +30,11 @@ describe('Puppeteer Demo', function () {
         await browser.close()
     })
 
-    // skip:this skips the test
-    // only: this test runs leaving the others
-    it.skip('test-1', async () => {
+    // test hooks:
+    // it.skip: skips the test
+    // it.only: runs the test leaving the others unexecuted
+
+    it('test-1', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -57,7 +59,7 @@ describe('Puppeteer Demo', function () {
         console.log(await page.viewport())
     })
 
-    it.skip('test-2: demonstrating use of hooks', async () => {
+    it('test-2: demonstrating use of hooks', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -65,7 +67,7 @@ describe('Puppeteer Demo', function () {
         await setTimeout(sleepTime)
     })
 
-    it.skip('test-3: assertions', async () => {
+    it('test-3: assertions', async () => {
         await page.goto('https://example.com/')
 
         // code to sleep using javascrip
@@ -86,7 +88,7 @@ describe('Puppeteer Demo', function () {
         await page.waitForSelector('h1')
     })
 
-    it('handling elements using selectors', async () => {
+    it('test-4: handling elements using selectors', async () => {
         await page.goto('https://saucedemo.com/')
         await page.waitForSelector('form')
         await page.type("input[placeholder='Username']", 'username', { delay: 50 })
@@ -94,5 +96,14 @@ describe('Puppeteer Demo', function () {
         await page.click("[data-test='login-button']")
         await page.waitForSelector(".error")
         await setTimeout(sleepTime)
+    })
+
+    it.only('test-5: handling multimedia', async () => {
+        await page.goto('https://saucedemo.com/')
+        await page.waitForSelector('form')
+        // taking screenshot
+        await page.screenshot({ path: "./snaps/images/handlingMultimedia.png" })
+        // making pdfs
+        await page.pdf({ path: "./snaps/pdfs/handlingMultimedia.pdf" })
     })
 })
