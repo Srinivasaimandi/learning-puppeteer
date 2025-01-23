@@ -91,10 +91,12 @@ describe('Puppeteer Demo', function () {
     it('test-4: handling elements using selectors', async () => {
         await page.goto('https://saucedemo.com/')
         await page.waitForSelector('form')
-        await page.type("input[placeholder='Username']", 'username', { delay: 50 })
-        await page.type("#password", "password")
+        await page.type("input[placeholder='Username']", 'username', {
+            delay: 50,
+        })
+        await page.type('#password', 'password')
         await page.click("[data-test='login-button']")
-        await page.waitForSelector(".error")
+        await page.waitForSelector('.error')
         await setTimeout(sleepTime)
     })
 
@@ -102,14 +104,14 @@ describe('Puppeteer Demo', function () {
         await page.goto('https://saucedemo.com/')
         await page.waitForSelector('form')
         // taking screenshot
-        await page.screenshot({ path: "./snaps/images/handlingMultimedia.png" })
+        await page.screenshot({ path: './snaps/images/handlingMultimedia.png' })
         // making pdfs
-        await page.pdf({ path: "./snaps/pdfs/handlingMultimedia.pdf" })
+        await page.pdf({ path: './snaps/pdfs/handlingMultimedia.pdf' })
     })
 
     it('test-6: device emulations', async () => {
         // this emulates the view port of the know device and opens the website on that device
-        const { KnownDevices } = require("puppeteer")
+        const { KnownDevices } = require('puppeteer')
         const iPhone = KnownDevices['iPhone 15']
         await page.emulate(iPhone)
         await page.goto('https://saucedemo.com/')
@@ -119,30 +121,39 @@ describe('Puppeteer Demo', function () {
         await setTimeout(3000)
     })
 
-    it("test-7: file uploads", async () => {
-        await page.goto("https://qa-automation-practice.netlify.app/file-upload")
-        await page.waitForSelector("h2")
+    it('test-7: file uploads', async () => {
+        await page.goto(
+            'https://qa-automation-practice.netlify.app/file-upload'
+        )
+        await page.waitForSelector('h2')
         // making pdfs
-        await page.pdf({ path: "./snaps/pdfs/uploadTestDemoFile.pdf" })
+        await page.pdf({ path: './snaps/pdfs/uploadTestDemoFile.pdf' })
         // uploading the created pdf document
         const fileInput = await page.$("input[type='file']")
-        const file = "./snaps/pdfs/uploadTestDemoFile.pdf"
+        const file = './snaps/pdfs/uploadTestDemoFile.pdf'
         await fileInput.uploadFile(file)
         // submitting the upload form
         await page.click("button[type='Submit']")
-        await page.waitForSelector("#file_upload_response")
+        await page.waitForSelector('#file_upload_response')
         // code to fetch text of an item and validate it
-        let uploadSuccessMessage = await page.$eval("#file_upload_response", span => span.innerText)
-        await expect(uploadSuccessMessage).to.equal("You have successfully uploaded \"uploadTestDemoFile.pdf\"")
+        let uploadSuccessMessage = await page.$eval(
+            '#file_upload_response',
+            (span) => span.innerText
+        )
+        await expect(uploadSuccessMessage).to.equal(
+            'You have successfully uploaded "uploadTestDemoFile.pdf"'
+        )
     })
 
-    it("test-8: custom functions", async () => {
-        await page.goto("https://qa-automation-practice.netlify.app/file-upload")
-        await page.waitForSelector("h2")
+    it('test-8: custom functions', async () => {
+        await page.goto(
+            'https://qa-automation-practice.netlify.app/file-upload'
+        )
+        await page.waitForSelector('h2')
         await logTitle(page)
     })
 })
 
 async function logTitle(page) {
-    console.log("Log from custom function: " + await page.title())
+    console.log('Log from custom function: ' + (await page.title()))
 }
